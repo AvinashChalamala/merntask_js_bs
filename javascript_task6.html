@@ -10,42 +10,41 @@
             margin: 0;
             padding: 0;
             font-size: large;
-
         }
 
         .container {
             height: 350px;
-            width: 90%; 
-            max-width: 400px; 
+            width: 90%;
+            max-width: 400px;
             padding: 10px;
             text-align: center;
             background-color: rgba(247, 247, 247, 255);
-            margin: 100px auto; 
+            margin: 100px auto;
             box-shadow: 0px 3px 5px 1px black;
         }
 
         h1 {
             font-style: italic;
             font-weight: 100;
-            margin-bottom: 20px; 
+            margin-bottom: 20px;
         }
 
         #uname, #pass, #log {
-            margin: 10px 0; 
-            height: 40px; 
-            width: 100%; 
+            margin: 10px 0;
+            height: 40px;
+            width: 100%;
             padding-left: 10px;
             box-sizing: border-box;
             border: 1px solid rgb(230, 229, 229);
         }
 
-        #log{
-            background-color: #405DE6; 
+        #log {
+            background-color: #405DE6;
             font-weight: 700;
             color: white;
             height: 40px;
             border-radius: 3px;
-            margin-bottom: 20px; 
+            margin-bottom: 20px;
             cursor: pointer;
         }
 
@@ -56,13 +55,13 @@
 
         label {
             float: left;
-            margin-top: 15px; 
+            margin-top: 15px;
         }
 
         #fpass {
-            display: block; 
+            display: block;
             margin-top: 15px;
-            color: #145FD6; 
+            color: #145FD6;
         }
 
         p {
@@ -75,22 +74,27 @@
 
         a {
             text-decoration: none;
-            color: #145FD6; 
+            color: #145FD6;
         }
-        input{
+
+        input {
             font-size: large;
+        }
+
+        .error-message {
+            color: red;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Instagram</h1>
-        <form action="">
+        <form action="" onsubmit="return validateForm()">
             <input type="text" id="uname" placeholder="Username">
             <br>
             <input type="password" id="pass" placeholder="Password">
             <br>
-            <button id="log" onclick="validateForm()">Login</button>
+            <button id="log">Login</button>
             <br>
             <input type="checkbox" id="rem">
             <label for="rem">Remember me</label>
@@ -98,48 +102,53 @@
         </form>
     </div>
     <p>Don't have an account? <a href="#">Sign up here</a></p>
-  <script>
-   function validateForm() {
-    var username = document.getElementById('uname').value;
-    var password = document.getElementById('pass').value;
-    var isValid = true;
+    <script>
+        function validateForm() {
+            var username = document.getElementById('uname').value;
+            var password = document.getElementById('pass').value;
 
-    if (username.trim() === '') {
-        showError('Username should not be empty.', 'uname');
-        isValid = false;
-    }
+            if (username.trim() === '') {
+                showError('Username or password should not be empty.', 'uname');
+                return false;
+            } else {
+                hideError('uname');
+            }
 
-    if (password.trim() === '') {
-        showError('Password or username should not be empty.', 'pass');
-        isValid = false;
-    }
+            if (password.trim() === '') {
+                showError('Password or username should not be empty.', 'pass');
+                return false;
+            } else {
+                hideError('pass');
+            }
 
-    return isValid;
-}
+            return true;
+        }
 
-function showError(message, inputId) {
-    var errorDiv = document.createElement('div');
-    errorDiv.className = 'error-message';
-    errorDiv.style.color = 'red';
-    errorDiv.appendChild(document.createTextNode(message));
+        function showError(message, inputId) {
+            var errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.appendChild(document.createTextNode(message));
 
-    var inputField = document.getElementById(inputId);
-    var container = inputField.parentNode;
+            var inputField = document.getElementById(inputId);
+            var container = inputField.parentNode;
 
+            var existingError = container.querySelector('.error-message');
+            if (existingError) {
+                existingError.remove();
+            }
 
-    var existingError = container.querySelector('.error-message');
-    if (existingError) {
-        existingError.remove();
-    }
+            container.insertBefore(errorDiv, inputField.nextSibling);
+        }
 
-    container.insertBefore(errorDiv, inputField.nextSibling);
+        function hideError(inputId) {
+            var inputField = document.getElementById(inputId);
+            var container = inputField.parentNode;
 
-
-    setTimeout(function() {
-        errorDiv.remove();
-    }, 3000);
-}
-
-  </script>
+            var existingError = container.querySelector('.error-message');
+            if (existingError) {
+                existingError.remove();
+            }
+        }
+    </script>
 </body>
 </html>
