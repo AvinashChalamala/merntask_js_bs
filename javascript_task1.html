@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Reversal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        #result {
+            font-size: 24px;
+            color: rgb(78, 141, 188);
+            margin-top: 20px;
+        }
+        .container{
+            position: relative;
+            top: 200px;
+            left: 450px;
+            border: 3px solid rgb(180, 183, 188);
+            height:200px;
+            width:500px;
+            background-color: rgb(214, 222, 228);
+            border-radius: 10px;
+            box-shadow: 10px 5px 100px 5px;
+        }
+        button{
+            margin-top: 10px;
+            border: 1px solid black;
+            border-radius: 5px;
+            box-shadow: 1px 2px 30px 4px rgb(214, 222, 228);
+            height: 30px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>Number Reversal</h1>
+    <label for="inputNumber">Enter a number: </label>
+    <input type="text" id="inputNumber" placeholder="Enter a number">
+    <button onclick="reverseNumber()">Reverse</button>
+    <div id="result"></div>
+</div>
+    <script>
+        function reverseNumber() {
+            const inputNumber = document.getElementById('inputNumber').value;
+            
+            // Check if input is a valid number
+            if (!isNaN(inputNumber)) {
+                const reversedNumber = parseFloat(inputNumber.toString().split('').reverse().join(''));
+                document.getElementById('result').textContent = `Reversed Number is: ${reversedNumber}`;
+            } else {
+                document.getElementById('result').textContent = 'Please enter a valid number.';
+            }
+        }
+    </script>
+</body>
+</html>
